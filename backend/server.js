@@ -78,14 +78,10 @@ app.post('/api/bookings', authenticateUser, (req, res) => {
     const checkSql = `
         SELECT * FROM bookings 
         WHERE room_id = ? 
-        AND (
-            (start_time < ? AND end_time > ?) OR
-            (start_time < ? AND end_time > ?) OR
-            (start_time >= ? AND end_time <= ?)
-        )
+        AND (start_time < ? AND end_time > ?)
     `;
     
-    db.get(checkSql, [room_id, end_time, start_time, end_time, start_time, start_time, end_time], (err, row) => {
+    db.get(checkSql, [room_id, end_time, start_time], (err, row) => {
         if (err) return res.status(500).json({ error: err.message });
         if (row) {
              return res.status(400).json({ error: "This room is already booked during the selected time slot." });

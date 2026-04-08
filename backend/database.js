@@ -51,18 +51,16 @@ const db = new sqlite3.Database(dbPath, (err) => {
             }
         });
 
-        // Drop the old bookings table and recreate it with user_id instead of user_name
-        db.run(`DROP TABLE IF EXISTS bookings`, (err) => {
-            db.run(`CREATE TABLE IF NOT EXISTS bookings (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                room_id INTEGER,
-                user_id INTEGER NOT NULL,
-                start_time DATETIME NOT NULL,
-                end_time DATETIME NOT NULL,
-                FOREIGN KEY (room_id) REFERENCES rooms(id),
-                FOREIGN KEY (user_id) REFERENCES users(id)
-            )`);
-        });
+        // Create bookings table if it doesn't exist
+        db.run(`CREATE TABLE IF NOT EXISTS bookings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            room_id INTEGER,
+            user_id INTEGER NOT NULL,
+            start_time DATETIME NOT NULL,
+            end_time DATETIME NOT NULL,
+            FOREIGN KEY (room_id) REFERENCES rooms(id),
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        )`);
         
         // Simple admin config table
         db.run(`CREATE TABLE IF NOT EXISTS config (

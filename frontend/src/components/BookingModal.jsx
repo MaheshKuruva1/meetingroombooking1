@@ -44,8 +44,8 @@ export default function BookingModal({ room, startTime, onClose, onSuccess }) {
                 },
                 body: JSON.stringify({
                     room_id: room.id,
-                    start_time: formatISO(actualStart),
-                    end_time: formatISO(actualEnd)
+                    start_time: format(actualStart, "yyyy-MM-dd'T'HH:mm:ss"),
+                    end_time: format(actualEnd, "yyyy-MM-dd'T'HH:mm:ss")
                 })
             });
 
