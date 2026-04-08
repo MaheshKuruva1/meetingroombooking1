@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { format, formatISO, parse, isAfter } from 'date-fns';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 export default function BookingModal({ room, startTime, onClose, onSuccess }) {
     // Initial start time based on the clicked block

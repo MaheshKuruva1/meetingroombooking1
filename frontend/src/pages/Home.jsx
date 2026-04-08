@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BookingModal from '../components/BookingModal';
 import { format, parseISO, addMinutes, startOfDay, setHours, setMinutes } from 'date-fns';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 const generateTimeSlots = (baseDate) => {
     const slots = [];
