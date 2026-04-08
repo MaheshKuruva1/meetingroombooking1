@@ -107,7 +107,11 @@ export default function Admin() {
                     <h1>Admin Dashboard</h1>
                     <p className="text-muted">Manage all meeting room bookings across the organization.</p>
                 </div>
-                <button className="btn btn-outline" onClick={() => setIsAuthenticated(false)}>Logout</button>
+                <button className="btn btn-outline" onClick={() => {
+                    setIsAuthenticated(false);
+                    setPassword('');
+                    setToken(null);
+                }}>Logout</button>
             </div>
 
             <div className="glass-panel admin-table-container">

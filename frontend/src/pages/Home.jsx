@@ -71,6 +71,10 @@ export default function Home({ user }) {
             return;
         }
         if (isSlotBooked(room.id, slotTime)) return;
+        if (slotTime < new Date()) {
+            alert("This time slot has already passed.");
+            return;
+        }
         setSelectedSlot({ room, startTime: slotTime });
     };
 
@@ -114,12 +118,13 @@ export default function Home({ user }) {
                             <div className="time-grid">
                                 {timeSlots.map((slot, index) => {
                                     const booked = isSlotBooked(room.id, slot);
+                                    const isPast = slot < new Date();
                                     return (
                                         <div 
                                             key={index} 
-                                            className={`time-slot ${booked ? 'slot-booked' : 'slot-available'}`}
+                                            className={`time-slot ${booked ? 'slot-booked' : isPast ? 'slot-past' : 'slot-available'}`}
                                             onClick={() => handleSlotClick(room, slot)}
-                                            title={`${format(slot, 'HH:mm')} - ${format(addMinutes(slot, 30), 'HH:mm')}`}
+                                            title={isPast ? "Past slot" : `${format(slot, 'HH:mm')} - ${format(addMinutes(slot, 30), 'HH:mm')}`}
                                         >
                                             <span style={{fontSize: '0.65rem'}}>{format(slot, 'HH:mm')}</span>
                                         </div>
